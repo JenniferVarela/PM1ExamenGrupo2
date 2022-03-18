@@ -10,7 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PM1ExamenGrupo2">
         <activity
-            android:name=".MainActivity"
+            android:name=".ActivityMapa"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityListarContactos"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityUsuario"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
