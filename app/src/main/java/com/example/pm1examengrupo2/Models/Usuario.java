@@ -5,15 +5,21 @@ public class Usuario
     public int id;
     public String nombre;
     public int telefono;
-    public static String Latitud = "";
-    public static String Longitud = "";
+    public String Latitud;
+    public String Longitud;
     public byte[] foto;
 
-    public Usuario(int id, String nombre, int telefono, byte[] foto) {
+    public Usuario(int id, String nombre, int telefono, String latitud, String longitud) {
         this.id = id;
         this.nombre = nombre;
         this.telefono = telefono;
+        Latitud = latitud;
+        Longitud = longitud;
         this.foto = foto;
+    }
+
+    public Usuario() {
+
     }
 
     public int getId() {
@@ -40,19 +46,19 @@ public class Usuario
         this.telefono = telefono;
     }
 
-    public static String getLatitud() {
+    public String getLatitud() {
         return Latitud;
     }
 
-    public static void setLatitud(String latitud) {
+    public void setLatitud(String latitud) {
         Latitud = latitud;
     }
 
-    public static String getLongitud() {
+    public String getLongitud() {
         return Longitud;
     }
 
-    public static void setLongitud(String longitud) {
+    public void setLongitud(String longitud) {
         Longitud = longitud;
     }
 
