@@ -115,7 +115,11 @@ public class ActivityUsuario extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                crearUsuario();
+                try {
+                    validarDatos();
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "Debe de tomarse una foto ",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -126,6 +130,21 @@ public class ActivityUsuario extends AppCompatActivity {
             locationStart();
         }
 
+    }
+
+    private void validarDatos() {
+        if(txtNombre.getText().toString().equals("")) {
+            Toast.makeText(getApplicationContext(), "Debe de escribir un nombre" ,Toast.LENGTH_LONG).show();
+        }else if (txtTelefono.getText().toString().equals("")){
+            Toast.makeText(getApplicationContext(), "Debe de escribir un telefono" ,Toast.LENGTH_LONG).show();
+        }else if (txtLat.getText().toString().equals("")){
+            Toast.makeText(getApplicationContext(), "Debe de escribir un latitud" ,Toast.LENGTH_LONG).show();
+        }else if (txtLon.getText().toString().equals("")){
+            Toast.makeText(getApplicationContext(), "Debe de escribir un longitud" ,Toast.LENGTH_LONG).show();
+        }
+        else {
+            crearUsuario();
+        }
     }
 
     private void permisos() {
@@ -258,6 +277,15 @@ public class ActivityUsuario extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonObjectRequest);
+
+        limpiar();
+    }
+
+    private void limpiar() {
+        txtNombre.setText("");
+        txtTelefono.setText("");
+        txtLon.setText("");
+        txtLat.setText("");
     }
 
 
