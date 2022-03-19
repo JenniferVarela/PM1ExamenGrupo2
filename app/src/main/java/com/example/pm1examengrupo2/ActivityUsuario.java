@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +19,7 @@ import android.widget.ImageView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ActivityUsuario extends AppCompatActivity {
-
+    static final int RESULT_GALLERY_IMG = 100;
     Button btnSave,btnListarContactos;
     FloatingActionButton btnTomarfoto;
     ImageView Foto;
@@ -35,7 +36,7 @@ public class ActivityUsuario extends AppCompatActivity {
         } else {
 
         }
-
+        Foto = findViewById(R.id.imageView);
         btnSave = (Button) findViewById(R.id.btnGuardar);
         btnListarContactos = (Button) findViewById(R.id.btnContactos);
         btnTomarfoto = (FloatingActionButton) findViewById(R.id.fbtnTomarFoto);
@@ -62,14 +63,19 @@ public class ActivityUsuario extends AppCompatActivity {
 
             }
         });
+        findViewById(R.id.fbtnTomarFoto).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GaleriaImagenes();
+
+            }
+        });
+
     }
-
-
-
-
-
-
-
+    private void GaleriaImagenes() {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(photoPickerIntent, RESULT_GALLERY_IMG);
+    }
 
 
 }
