@@ -236,5 +236,9 @@ public class ActivityUsuario extends AppCompatActivity {
     }
 
 
+    //-----------------------------LATITUD Y LONGITUD----------------------------------------
+
+
+
 
 }
