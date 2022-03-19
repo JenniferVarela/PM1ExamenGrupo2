@@ -3,7 +3,6 @@ package com.example.pm1examengrupo2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,14 +15,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pm1examengrupo2.Models.RestApiMethods;
@@ -167,20 +164,20 @@ public class ActivityListarContactos extends AppCompatActivity {
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                         alertDialogBuilder.setTitle("Acción");
                         alertDialogBuilder
-                                .setMessage("¿Desea ir a la Ubicacion de "+"?")
+                                .setMessage("¿Desea ir a la Ubicacion de "+usuario.getNombre()+"?")
                                 .setCancelable(false)
                                 .setPositiveButton("SI",new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        // si el usuario da click en si procede a llamar el metodo de eliminar
+                                        // se procede a ir a la ubicacion seteando los parametros
                                         try{
-                                            //permisoLlamada();
+                                            Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+                                            intent.putExtra("latitud", usuario.getLatitud());
+                                            intent.putExtra("longitud", usuario.getLongitud());
+                                            startActivity(intent);
+
                                         }catch (Exception ex){
                                             ex.toString();
                                         }
-
-                                        Toast.makeText(getApplicationContext(),"Realizando llamada",
-                                                Toast.LENGTH_SHORT).show();
-
                                     }
                                 })
                                 .setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -200,8 +197,8 @@ public class ActivityListarContactos extends AppCompatActivity {
                     previousMil=System.currentTimeMillis();
                     //un clic
                     usuario = usuarioList.get(i);//lleno la lista de contacto
-                    setContactoSeleccionado();
-                    Toast.makeText(getApplicationContext(),"un clic usuario"+usuario.getId(), Toast.LENGTH_SHORT).show();
+                    setUsuarioSeleccionado();//obtengo el usuario seleccionado de la lista
+                    Toast.makeText(getApplicationContext(),"usuario id: "+usuario.getId(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -325,13 +322,15 @@ public class ActivityListarContactos extends AppCompatActivity {
 
 
 
-    private void setContactoSeleccionado() {
+    private void setUsuarioSeleccionado() {
 
         //contacto = listaContactos.get(id);
         //intent = new Intent(getApplicationContext(),ActivityActualizarContacto.class);
         intent.putExtra("id", usuario.getId()+"");
         intent.putExtra("nombre", usuario.getNombre());
         intent.putExtra("telefono", usuario.getTelefono()+"");
+        intent.putExtra("latitud", usuario.getLatitud());
+        intent.putExtra("longitud", usuario.getLongitud());
         //startActivity(intent);
     }
 
