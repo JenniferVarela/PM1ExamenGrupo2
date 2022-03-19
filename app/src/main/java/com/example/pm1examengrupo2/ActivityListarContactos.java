@@ -103,6 +103,13 @@ public class ActivityListarContactos extends AppCompatActivity {
         btnActualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),ActivityActualizarUsuario.class);
+                intent.putExtra("id", usuario.getId()+"");
+                intent.putExtra("nombre", usuario.getNombre()+"");
+                intent.putExtra("telefono", usuario.getTelefono()+"");
+                intent.putExtra("latitud", usuario.getLatitud()+"");
+                intent.putExtra("longitud", usuario.getLongitud()+"");
+                startActivity(intent);
 
             }
         });
