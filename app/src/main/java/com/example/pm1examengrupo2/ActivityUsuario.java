@@ -200,7 +200,7 @@ public class ActivityUsuario extends AppCompatActivity {
                 tomarFoto();
             }
         }else{
-            Toast.makeText(getApplicationContext(),"Se necesitan permisos de acceso a la camara",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Se necesitan permisos",Toast.LENGTH_LONG).show();
         }
         //permiso para GPS
         if (requestCode == 1000) {

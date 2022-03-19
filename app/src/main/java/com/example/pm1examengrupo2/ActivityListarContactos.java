@@ -41,7 +41,7 @@ public class ActivityListarContactos extends AppCompatActivity {
     ListView listUsuario;
     List<Usuario> usuarioList;
     ArrayList<String> arrayUsuario;
-    Button btnActualizar, btnAtras, btnEliminar;
+    Button btnActualizar, btnAtras, btnEliminar, btnUbicacion;
     Usuario usuario;
     EditText buscar;
     ArrayAdapter adp;
@@ -69,6 +69,7 @@ public class ActivityListarContactos extends AppCompatActivity {
         btnActualizar = (Button) findViewById(R.id.alcbtnActualizar);
         btnAtras = (Button) findViewById(R.id.alcbtnAtras);
         btnEliminar = (Button) findViewById(R.id.alcbtnEliminar);
+        btnUbicacion = (Button) findViewById(R.id.btnUbicacion);
 
         buscar = (EditText) findViewById(R.id.alctxtbuscar);
 
@@ -159,6 +160,16 @@ public class ActivityListarContactos extends AppCompatActivity {
 
                 // show it
                 alertDialog.show();
+            }
+        });
+
+        btnUbicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+                intent.putExtra("latitud", usuario.getLatitud());
+                intent.putExtra("longitud", usuario.getLongitud());
+                startActivity(intent);
             }
         });
 
