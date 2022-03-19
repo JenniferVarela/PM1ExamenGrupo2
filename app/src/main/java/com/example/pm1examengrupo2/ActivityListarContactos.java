@@ -46,6 +46,8 @@ public class ActivityListarContactos extends AppCompatActivity {
     EditText buscar;
     ArrayAdapter adp;
 
+    Intent intent;
+
 
     int previousPosition = 1;
     int count=1;
@@ -58,6 +60,9 @@ public class ActivityListarContactos extends AppCompatActivity {
         setContentView(R.layout.activity_listar_contactos);
 
         listUsuario = (ListView) findViewById(R.id.listaContacto);
+        intent = new Intent(getApplicationContext(),ActivityListarContactos.class);//para obtener el contacto seleccionado mas adelante
+
+
         usuarioList = new ArrayList<>();
         arrayUsuario = new ArrayList<String>();
 
@@ -120,17 +125,17 @@ public class ActivityListarContactos extends AppCompatActivity {
 
                 // set title
 
-                alertDialogBuilder.setTitle("Eliminar Contacto");
+                alertDialogBuilder.setTitle("Eliminar Usuario");
 
 
                 // set dialog message
                 alertDialogBuilder
-                        .setMessage("¿Está seguro de eliminar el contacto?")
+                        .setMessage("¿Está seguro de eliminar el usuario?")
                         .setCancelable(false)
                         .setPositiveButton("SI",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // si el usuario da click en si procede a llamar el metodo de eliminar
-                                //eliminarContacto();
+                                eliminarUsuario(String.valueOf(usuario.getId()));
                             }
                         })
                         .setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -194,8 +199,9 @@ public class ActivityListarContactos extends AppCompatActivity {
                     count=1;
                     previousMil=System.currentTimeMillis();
                     //un clic
-//                    contacto = listaContactos.get(i);//lleno la lista de contacto
-//                    setContactoSeleccionado();
+                    usuario = usuarioList.get(i);//lleno la lista de contacto
+                    setContactoSeleccionado();
+                    Toast.makeText(getApplicationContext(),"un clic usuario"+usuario.getId(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -224,7 +230,7 @@ public class ActivityListarContactos extends AppCompatActivity {
                             for (int i=0; i<contactoArray.length(); i++)
                             {
                                 JSONObject RowUsuario = contactoArray.getJSONObject(i);
-                                Usuario usuario = new Usuario(  RowUsuario.getInt("id"),
+                                usuario = new Usuario(  RowUsuario.getInt("id"),
                                         RowUsuario.getString("nombre"),
                                         RowUsuario.getInt("telefono"),
                                         RowUsuario.getString("latitud"),
@@ -294,6 +300,39 @@ public class ActivityListarContactos extends AppCompatActivity {
             }
         });
         queue.add(stringRequest);
+    }
+
+    private void eliminarUsuario(String dato) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://transportweb2.online/APIexam/eliminarcontacto.php?id=";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url+dato,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(getApplicationContext(), "Usuario eliminado exitosamente", Toast.LENGTH_SHORT).show();
+                        listarUsuarios();
+                    }
+                }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error){
+                //Toast.makeText(getApplicationContext(), "mensaje "+error, Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(stringRequest);
+    }
+
+
+
+
+
+    private void setContactoSeleccionado() {
+
+        //contacto = listaContactos.get(id);
+        //intent = new Intent(getApplicationContext(),ActivityActualizarContacto.class);
+        intent.putExtra("id", usuario.getId()+"");
+        intent.putExtra("nombre", usuario.getNombre());
+        intent.putExtra("telefono", usuario.getTelefono()+"");
+        //startActivity(intent);
     }
 
 }

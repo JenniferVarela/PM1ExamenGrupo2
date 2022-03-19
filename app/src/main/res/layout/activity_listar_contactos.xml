@@ -35,7 +35,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="481dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,29 +45,33 @@
                 <ListView
                     android:id="@+id/listaContacto"
                     android:layout_width="match_parent"
-                    android:layout_height="478dp" />
+                    android:layout_height="478dp"
+                    android:choiceMode="singleChoice">
+
+                </ListView>
             </LinearLayout>
         </ScrollView>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/alcbtnEliminar"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Eliminar" />
+
+            <Button
+                android:id="@+id/alcbtnActualizar"
+                android:layout_width="177dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Actualizar" />
+        </LinearLayout>
+
     </LinearLayout>
-
-    <Button
-        android:id="@+id/alcbtnEliminar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:text="Eliminar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/alcbtnActualizar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Actualizar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.759"
-        app:layout_constraintStart_toEndOf="@+id/alcbtnEliminar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
