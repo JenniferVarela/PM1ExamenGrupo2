@@ -35,7 +35,7 @@ public class ActivityUsuario extends AppCompatActivity {
         } else {
 
         }
-
+        Foto = findViewById(R.id.imageView);
         btnSave = (Button) findViewById(R.id.btnGuardar);
         btnListarContactos = (Button) findViewById(R.id.btnContactos);
         btnTomarfoto = (FloatingActionButton) findViewById(R.id.fbtnTomarFoto);
