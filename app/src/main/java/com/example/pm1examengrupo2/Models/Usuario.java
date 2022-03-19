@@ -7,9 +7,9 @@ public class Usuario
     public int telefono;
     public String Latitud;
     public String Longitud;
-    public byte[] foto;
+    public String foto;
 
-    public Usuario(int id, String nombre, int telefono, String latitud, String longitud) {
+    public Usuario(int id, String nombre, int telefono, String latitud, String longitud, String foto) {
         this.id = id;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -62,11 +62,11 @@ public class Usuario
         Longitud = longitud;
     }
 
-    public byte[] getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(byte[] foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 }

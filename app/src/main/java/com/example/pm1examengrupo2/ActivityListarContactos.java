@@ -109,6 +109,7 @@ public class ActivityListarContactos extends AppCompatActivity {
                 intent.putExtra("telefono", usuario.getTelefono()+"");
                 intent.putExtra("latitud", usuario.getLatitud()+"");
                 intent.putExtra("longitud", usuario.getLongitud()+"");
+                intent.putExtra("foto", usuario.getFoto()+"").toString();
                 startActivity(intent);
 
             }
@@ -134,7 +135,7 @@ public class ActivityListarContactos extends AppCompatActivity {
 
                 // set dialog message
                 alertDialogBuilder
-                        .setMessage("¿Está seguro de eliminar el usuario?")
+                        .setMessage("¿Está seguro de eliminar el usuario "+usuario.getNombre()+"?")
                         .setCancelable(false)
                         .setPositiveButton("SI",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -205,7 +206,7 @@ public class ActivityListarContactos extends AppCompatActivity {
                     //un clic
                     usuario = usuarioList.get(i);//lleno la lista de contacto
                     setUsuarioSeleccionado();//obtengo el usuario seleccionado de la lista
-                    Toast.makeText(getApplicationContext(),"usuario id: "+usuario.getId(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"usuario id: "+usuario.getId(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -238,8 +239,10 @@ public class ActivityListarContactos extends AppCompatActivity {
                                         RowUsuario.getString("nombre"),
                                         RowUsuario.getInt("telefono"),
                                         RowUsuario.getString("latitud"),
-                                        RowUsuario.getString("longitud")
+                                        RowUsuario.getString("longitud"),
+                                        RowUsuario.getString("foto")
                                 );
+
                                 usuarioList.add(usuario);
                                 arrayUsuario.add(usuario.getNombre()+' '+usuario.getTelefono());
                             }
@@ -284,7 +287,8 @@ public class ActivityListarContactos extends AppCompatActivity {
                                         RowUsuario.getString("nombre"),
                                         RowUsuario.getInt("telefono"),
                                         RowUsuario.getString("latitud"),
-                                        RowUsuario.getString("longitud")
+                                        RowUsuario.getString("longitud"),
+                                        RowUsuario.getString("foto")
                                 );
                                 usuarioList.add(usuario);
                                 arrayUsuario.add(usuario.getNombre()+' '+usuario.getTelefono());
@@ -294,7 +298,7 @@ public class ActivityListarContactos extends AppCompatActivity {
                             listUsuario.setAdapter(adp);
 
                         }catch (JSONException ex){
-                            //Toast.makeText(getApplicationContext(), "mensaje "+ex, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "mensaje "+ex, Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener(){
@@ -338,6 +342,8 @@ public class ActivityListarContactos extends AppCompatActivity {
         intent.putExtra("telefono", usuario.getTelefono()+"");
         intent.putExtra("latitud", usuario.getLatitud());
         intent.putExtra("longitud", usuario.getLongitud());
+        intent.putExtra("foto2", usuario.getFoto()+"").toString();
+
         //startActivity(intent);
     }
 

@@ -7,6 +7,16 @@
     tools:context=".ActivityActualizarUsuario">
 
 
+    <Button
+        android:id="@+id/btnAtrasAU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Atras"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imageViewAU"
         android:layout_width="176dp"
@@ -138,23 +148,11 @@
         android:id="@+id/btnActualizarAU"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
         android:text="Actualizar"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtLonAU"
-        app:layout_constraintVertical_bias="0.225" />
-
-    <Button
-        android:id="@+id/btnAtrasAU"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Atras"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.574"
-        app:layout_constraintStart_toEndOf="@+id/btnActualizarAU"
-        app:layout_constraintTop_toBottomOf="@+id/txtLonAU"
-        app:layout_constraintVertical_bias="0.225" />
+        app:layout_constraintVertical_bias="0.255" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
