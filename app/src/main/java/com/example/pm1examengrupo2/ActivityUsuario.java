@@ -28,10 +28,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pm1examengrupo2.Models.RestApiMethods;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -46,7 +50,7 @@ public class ActivityUsuario extends AppCompatActivity {
     ImageView Foto;
     EditText txtNombre,txtTelefono,txtLat,txtLon;
 
-    Bitmap photo;
+    Bitmap imagen;
 
     static final int PETICION_ACCESO_CAM = 100;
     static final int TAKE_PIC_REQUEST = 101;
@@ -100,7 +104,7 @@ public class ActivityUsuario extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendImage();
+                crearUsuario();
             }
         });
 
@@ -167,49 +171,70 @@ public class ActivityUsuario extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         Uri imageUri;
+        //obtener la iamgen por el almacenamiento interno
         if(resultCode==RESULT_OK && requestCode==RESULT_GALLERY_IMG)
         {
 
             imageUri = data.getData();
             Foto.setImageURI(imageUri);
             try {
-                photo=MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
+                imagen=MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
 
             }catch (Exception e)
             {
-
+                Toast.makeText(getApplicationContext(),"Error al seleccionar imagen", Toast.LENGTH_SHORT).show();
             }
         }
+        //obtener la iamgen por la camara
+        if(requestCode == TAKE_PIC_REQUEST && resultCode == RESULT_OK)
+        {
+            Bundle extras = data.getExtras();
+            imagen = (Bitmap) extras.get("data");
+            Foto.setImageBitmap(imagen);
+        }
+
+
+
     }
 
-    private void SendImage() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, RestApiMethods.EndPointCreateUsuario, new Response.Listener<String>() {
+
+
+    private void crearUsuario() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        HashMap<String, String> parametros = new HashMap<>();
+
+        String fotoString = GetStringImage(imagen);
+
+
+        //setear los parametros mediante put
+        parametros.put("nombre", txtNombre.getText().toString());
+        parametros.put("telefono", txtTelefono.getText().toString());
+        parametros.put("latitud", txtLat.getText().toString());
+        parametros.put("longitud", txtLon.getText().toString());
+        parametros.put("foto", fotoString);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, RestApiMethods.EndPointCreateUsuario,
+                new JSONObject(parametros), new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Log.d("Respuesta",response.toString());
-                Toast.makeText(getApplicationContext(),"imagen SUbida" + response.toString(),Toast.LENGTH_LONG).show();
-
+            public void onResponse(JSONObject response) {
+                try {
+                    Toast.makeText(getApplicationContext(), "String Response " + response.getString("mensaje").toString(), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+
         }, new Response.ErrorListener() {
+
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Respuesta",error.toString());
-                Toast.makeText(getApplicationContext(),"Error " + error.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }) {
-            //data que se envia mediante request
-            protected Map<String, String> getParams() {
-
-                String image = GetStringImage(photo);
-                Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("imagen", image);
-
-                return parametros;
-            }
-        };
-        RequestQueue queue = Volley.newRequestQueue(this);
-        queue.add(stringRequest);
+        });
+        requestQueue.add(jsonObjectRequest);
     }
+
+
 
 }

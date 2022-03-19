@@ -6,12 +6,12 @@ public class RestApiMethods {
     //EndPoint Urls
     private static final String GetEmple = "/APIexam/listacontactos.php";
     private static final String GetBuscar = "/APIexam/listasinglecontacto.php?nombre=";
-    private static final String CreateEmple = "/APIexam/crearcontacto.php";
+    private static final String CreateUsuario = "/APIexam/crearcontacto.php";
 
     //metodo get
     public static final String EndPointGetContact = StringHttp + ipaddress + GetEmple;
     public static final String EndPointGetBuscarContact = StringHttp + ipaddress + GetBuscar;
-    public static final String EndPointCreateUsuario = StringHttp + ipaddress + CreateEmple;
+    public static final String EndPointCreateUsuario = StringHttp + ipaddress + CreateUsuario;
 }
 
 
