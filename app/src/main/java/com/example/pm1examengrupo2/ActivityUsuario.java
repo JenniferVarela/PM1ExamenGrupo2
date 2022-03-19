@@ -51,7 +51,7 @@ import java.util.Map;
 
 public class ActivityUsuario extends AppCompatActivity {
 
-    static final int RESULT_GALLERY_IMG = 200;
+
 
     Button btnSave,btnListarContactos,btnGaleria;
     FloatingActionButton btnTomarfoto;
@@ -60,6 +60,7 @@ public class ActivityUsuario extends AppCompatActivity {
 
     Bitmap imagen;
 
+    static final int RESULT_GALLERY_IMG = 200;
     static final int PETICION_ACCESO_CAM = 100;
     static final int TAKE_PIC_REQUEST = 101;
 
